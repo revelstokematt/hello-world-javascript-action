@@ -7,6 +7,9 @@ inputs:
   reviewers:
     description: 'Reviewers users'
     required: true
+  org:
+    description: 'Org Name'
+    required: true
   team-reviewers:
     description: 'Reviewers teams'
     required: true

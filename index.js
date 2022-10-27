@@ -6,6 +6,7 @@ try {
   //const payload = github.context.payload
 
   //const reviewers = core.getInput('reviewers').split(',')
+  const org = core.getInput('org')
   const team_reviewers = core.getInput('team-reviewers').split(',')
   
   const team_members = []

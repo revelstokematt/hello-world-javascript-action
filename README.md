@@ -21,5 +21,6 @@ uses: actions/hello-world-javascript-action@v1.1
 with:
   github-token: ${{ secrets.GITHUB_TOKEN }}
   reviewers: user-name
-  team-reviewers: slug/team-name
+  org: slug
+  team-reviewers: team-name
 ```
