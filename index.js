@@ -1,19 +1,30 @@
-const core = require('@actions/core');
-const github = require('@actions/github');
+import core from '@actions/core'
+import github from '@actions/github'
 
 try {
-  // `who-to-greet` input defined in action metadata file
-  const namesToGreet = core.getInput('who-to-greet').split(',');
+  const octokit = github.getOctokit(core.getInput('github-token'))
+  //const payload = github.context.payload
 
-  for (const name of namesToGreet) {
-    console.log(`Hello ${name}!`);
-  }
+  //const reviewers = core.getInput('reviewers').split(',')
+  const team_reviewers = core.getInput('team-reviewers').split(',')
   
-  const time = (new Date()).toTimeString();
-  core.setOutput("time", time);
-  // Get the JSON webhook payload for the event that triggered the workflow
-  const payload = JSON.stringify(github.context.payload, undefined, 2)
-  console.log(`The event payload: ${payload}`);
+  const team_members = []
+  team_reviewers.forEach(async team => {
+     const members = await octokit.rest.teams.listMembersInOrg({
+      org,
+      team_slug: team
+    })
+    team_members.push(members.map(member => member.login))
+  })
+  console.log(`Team members: ${team_members}`)
+
+  // const result = await octokit.rest.pulls.requestReviewers({
+  //   owner: payload.repository.owner.login,
+  //   repo: payload.repository.name,
+  //   pull_number: payload.pull_request.number,
+  //   reviewers,
+  //   team_reviewers
+  // })
 } catch (error) {
-  core.setFailed(error.message);
+  core.setFailed(error)
 }

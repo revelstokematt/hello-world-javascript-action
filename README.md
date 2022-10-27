@@ -19,5 +19,7 @@ The time we greeted you.
 ```yaml
 uses: actions/hello-world-javascript-action@v1.1
 with:
-  who-to-greet: 'name1,name2,name3'
+  github-token: ${{ secrets.GITHUB_TOKEN }}
+  reviewers: user-name
+  team-reviewers: slug/team-name
 ```
