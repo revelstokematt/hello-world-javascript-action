@@ -5,7 +5,7 @@ try {
   // `who-to-greet` input defined in action metadata file
   const namesToGreet = core.getInput('who-to-greet').split(',');
 
-  for await (const name of namesToGreet) {
+  for (const name of namesToGreet) {
     console.log(`Hello ${name}!`);
   }
   
